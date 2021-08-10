@@ -1,2 +1,3 @@
 venv/
 phrase_main.py
+__pycache__
