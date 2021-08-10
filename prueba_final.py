@@ -2,7 +2,7 @@ from archives import write
 import random
 
 def randomize(numerated_data):
-    palabra_random = random.randint(171, 172)
+    palabra_random = random.randint(1, 172)
     for palabra in numerated_data:
         if palabra_random == palabra[0]:
             return palabra[1].replace("\n","")
