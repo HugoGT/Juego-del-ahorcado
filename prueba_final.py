@@ -1,26 +1,12 @@
-from time import sleep
 from msvcrt import getch
+import menu
 import random
 import os
 
 
-def clear_cls():    
+def clear_cls():
     clear_console = lambda: os.system('cls' if os.name in ('nt', 'dos') else 'clear')
     clear_console()
-
-
-def give_the_word():
-    data = []
-    with open("./data.txt", "r", encoding="utf-8") as f:
-        for line in f:
-            data.append((line))
-    numerated_data = enumerate(data, 1)
-    word_to_guess = randomize(numerated_data)
-    spaces_to_draw = len(word_to_guess)
-    line = ""
-    for i in range(0, spaces_to_draw):
-        line += "_ "
-    return line, word_to_guess
 
 
 def normalize(s):
@@ -45,64 +31,37 @@ def randomize(numerated_data):
             return word.replace("\n","")
 
 
-def welcome():
-    welcom = """  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-░░░░░░░░████░█████░████░██░░█░█░░░░░█░████░██░░█░█████░████░░█████░░░░░░░░░
-░░░░░░░░█░░█░░░█░░░█░░░░██░░█░██░░░██░█░░░░██░░█░░░█░░░█░░░█░█░░░█░░░░░░░░░
-░░░░░░░░████░░░█░░░███░░█░█░█░░██░██░░███░░█░█░█░░░█░░░█░░░█░█░░░█░░░░░░░░░
-░░░░░░░░█░░█░░░█░░░█░░░░█░░██░░░███░░░█░░░░█░░██░░░█░░░█░░░█░█░░░█░░░░░░░░░
-░░░░░░░░████░█████░████░█░░░█░░░░█░░░░████░█░░░█░█████░████░░█████░░░░░░░░░
-░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-░░░░░░░░░██░░█░░░░░░░░█████░█░░█░████░█████░█████░░░░░████░░████░░░░░░░░░░░
-░░░░░░░░█░░█░█░░░░░░░░░░█░░░█░░█░█░░░░█░░░░░█░░░█░░░░░█░░░█░█░░░░░░░░░░░░░░
-░░░░░░░░█░░█░█░░░░░░░░░░█░░░█░░█░███░░█░░██░█░░░█░░░░░█░░░█░███░░░░░░░░░░░░
-░░░░░░░░████░█░░░░░░░░░░█░░░█░░█░█░░░░█░░░█░█░░░█░░░░░█░░░█░█░░░░░░░░░░░░░░
-░░░░░░░░█░░█░████░░░░░███░░░████░████░█████░█████░░░░░████░░████░░░░░░░░░░░
-░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-░░░░░░░░█░█░░████░█░░░░░░░░░░██░░█░░█░████░███░░████░░██░░███░░████░░█░█░░░
-░░░░░░░░░░░░░█░░░░█░░░░░░░░░█░░█░█░░█░█░░█░█░░█░█░░░░█░░█░█░░█░█░░█░░░░░░░░
-░░░░░░░░░░░░░███░░█░░░░░░░░░█░░█░████░█░░█░███░░█░░░░█░░█░█░░█░█░░█░░░░░░░░
-░░░░░░░░░░░░░█░░░░█░░░░░░░░░████░█░░█░█░░█░█░░█░█░░░░████░█░░█░█░░█░░░░░░░░
-░░░░░░░░░░░░░████░████░░░░░░█░░█░█░░█░████░█░░█░████░█░░█░███░░████░░░░░░░░
-  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-                                 1) Jugar
-                             2) Instrucciones
-                                 3) Salir"""
-    return welcom
-
-
-def instructions():
-    clear_cls()
-    print("""Objetivo: Descubrir la palabra secreta.
-
-Preparación:
-- Al inicio el computador pensará en una palabra o frase y dibujará una línea por cada letra.
-- El jugador tiene 10 intentos antes de perder.
-
-Juego:
-- En su turno el jugador puede elegir una letra. 
-- El computador revisa si la letra pedida se encuentra en la palabra secreta.
--- Si la letra está, entonces el computador la anota sobre la línea que ocupa su lugar en la palabra secreta.
--- Si la letra no está, entonces el jugador perderá una vida.
-
-
-Fin de la partida:
-- GANA el adivinador si descubre la palabra secreta. 
-- GANA el computador si el adivinador pierde las 10 vidas antes de adivinar la palabra.
-
-""")
+def give_the_word():
+    data = []
+    with open("./data.txt", "r", encoding="utf-8") as f:
+        for line in f:
+            data.append((line))
+    numerated_data = enumerate(data, 1)
+    word_to_guess = randomize(numerated_data)
+    spaces_to_draw = len(word_to_guess)
+    line = ""
+    for i in range(0, spaces_to_draw):
+        line += "_"
+    return line, word_to_guess
 
 
 def draw():
     clear_cls()
+    print(menu.welcome())
     while True:
-        print(welcome())
-        option = int(input("\n                                      "))
+        is_num = False
+        while is_num == False:
+            option = input("\n                                      ")
+            if option.isnumeric():
+                option = int(option)
+                is_num = True
+            else:
+                print("Escribe una opción correcta")
         if option == 1:
             break
         elif option == 2:
             while True:
-                instructions()
+                menu.instructions()
                 print("Presione cualquier tecla para continuar")
                 getch()
                 break
@@ -111,23 +70,44 @@ def draw():
             exit()
         else:
             print("Escribe una opción correcta")
-            sleep(2)
+    clear_cls()
 
 
 def game():
+    lives = 2
     word = give_the_word()
     line = word[0]
     letters = word[1]
     list_of_letters = []
+    guessed_word = []
     for letter in letters:
         list_of_letters.append(letter)
-    guessed_word = ""
-    for i in range(0,4):
-        # clear_console()
-        print(line)
-        print(letters)
-        print(list(list_of_letters), "\n")
-        break
+    for sub_script in line:
+        guessed_word.append(sub_script)
+    script = ""
+    counter = 15
+    for l in line*2:
+        if counter %2:
+            script += l
+        else:
+            script += " "
+        counter -= 1
+    line = script
+    while lives > 0:
+        print("\n", line, "\n")
+        user_input = input(" Ingrese una letra en minúscula: ")
+        while True:
+            if user_input.islower():
+                user_input = user_input[0]
+                print(user_input)
+                break
+            else:
+                print(" \n Solo se puede ingresar una letra y que sea minúscula\n")
+                user_input = input(" Ingrese una letra: ")
+        print(letters, "\n")
+        print(list_of_letters)
+        print(guessed_word)
+        lives -= 1
 
 
 def run():
