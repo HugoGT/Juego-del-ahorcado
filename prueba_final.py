@@ -93,13 +93,12 @@ def game():
             script += " "
         counter -= 1
     line = script
-    while lives > 0:
+    while lives > 0 and lives <= 10:
+        clear_cls()
         print("\n", line, "\n")
         user_input = input(" Ingrese una letra en minúscula: ")
         while True:
-            if user_input.islower():
-                user_input = user_input[0]
-                print(user_input)
+            if user_input.islower() and len(user_input) < 2:
                 break
             else:
                 print(" \n Solo se puede ingresar una letra y que sea minúscula\n")
@@ -108,6 +107,8 @@ def game():
         print(list_of_letters)
         print(guessed_word)
         lives -= 1
+        if guessed_word == list_of_letters:
+            lives += 10
 
 
 def run():
