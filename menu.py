@@ -52,3 +52,12 @@ Fin de la partida:
 - GANA el computador si el adivinador pierde las 10 vidas antes de adivinar la palabra.
 
 """)
+
+def win():
+    p = "Ganaste"
+    return p
+
+
+def loss():
+    p = "Perdiste"
+    return p
