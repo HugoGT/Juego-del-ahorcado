@@ -170,3 +170,5 @@ fiesta
 bala
 auriculares
 pared
+ventilador
+cajón
