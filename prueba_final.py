@@ -1,3 +1,4 @@
+from archives import write
 from msvcrt import getch
 from time import sleep
 import menu
@@ -43,6 +44,9 @@ def give_the_word():
     line = ""
     for i in range(0, spaces_to_draw):
         line += "¯" #line = line + "_"
+    with open("./words.txt", "a", encoding="utf-8") as f:
+        f.write(word_to_guess)
+        f.write("\n")
     return line, word_to_guess
 
 
@@ -85,6 +89,8 @@ def game():
     f_range = len(line)
     f_range = int(f_range)
     difficulty = draw()
+    letters_used = []
+    avance = False
 
     if difficulty == 1:
         lives = 9
@@ -109,7 +115,9 @@ def game():
 
     while lives > 0 and lives <= 10:
         clear_cls()
+        print(menu.ahorcado(difficulty, avance))
         print(f"Vidas = {lives}", "\n")
+        print(f"Letras usadas = {letters_used}\n")
         for i in range(0, int(len(line))):
             print("", guessed_word[i], end= "") 
         print("\n", script, "\n")
@@ -120,6 +128,7 @@ def game():
             else:
                 print(" \n Solo se puede ingresar una letra y que sea minúscula\n")
                 user_input = input(" Ingrese una letra: ")
+        letters_used.append(user_input)
 
         sc = 0
         for i in range(0, f_range):
