@@ -1,6 +1,4 @@
-from archives import write
 from msvcrt import getch
-from time import sleep
 import menu
 import random
 import os
@@ -57,6 +55,10 @@ def draw():
             if option.isnumeric():
                 option = int(option)
                 is_num = True
+            elif option == "zapato":
+                print("Ah pillín, conoces la llave")
+                print(menu.win())
+                exit()
             else:
                 print("Escribe una opción correcta")
         if option == 1:
