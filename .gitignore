@@ -1,3 +1,4 @@
 venv/
 __pycache__
 phrase_main.py
+words.txt
