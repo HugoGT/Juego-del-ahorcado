@@ -44,9 +44,6 @@ def give_the_word():
     line = ""
     for i in range(0, spaces_to_draw):
         line += "¯" #line = line + "_"
-    with open("./words.txt", "a", encoding="utf-8") as f:
-        f.write(word_to_guess)
-        f.write("\n")
     return line, word_to_guess
 
 
@@ -67,7 +64,7 @@ def draw():
         elif option == 2:
             while True:
                 menu.instructions()
-                print("Presione cualquier tecla para continuar")
+                print("Presione cualquier tecla para continuar\n")
                 getch()
                 break
             break
@@ -89,8 +86,7 @@ def game():
     f_range = len(line)
     f_range = int(f_range)
     difficulty = draw()
-    letters_used = []
-    avance = False
+    draw_iteration = 0.0
 
     if difficulty == 1:
         lives = 9
@@ -113,11 +109,19 @@ def game():
             script += " "
         counter -= 1
 
+    di = 0.0
+    if difficulty == 1:
+        draw_iteration = 1.01
+    elif difficulty == 2:
+        draw_iteration = 1.29
+    else:
+        draw_iteration = 1.8
+
     while lives > 0 and lives <= 10:
         clear_cls()
-        print(menu.ahorcado(difficulty, avance))
-        print(f"Vidas = {lives}", "\n")
-        print(f"Letras usadas = {letters_used}\n")
+        print(menu.ahorcado[int(di)])
+        di += draw_iteration
+        print(f"\nVidas = {lives}", "\n")
         for i in range(0, int(len(line))):
             print("", guessed_word[i], end= "") 
         print("\n", script, "\n")
@@ -128,7 +132,6 @@ def game():
             else:
                 print(" \n Solo se puede ingresar una letra y que sea minúscula\n")
                 user_input = input(" Ingrese una letra: ")
-        letters_used.append(user_input)
 
         sc = 0
         for i in range(0, f_range):
@@ -141,6 +144,7 @@ def game():
             lives += 10
         elif sc == 1:
             lives = lives
+            di -= draw_iteration
         else:
             lives -= 1
 
